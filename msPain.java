@@ -2,8 +2,8 @@ import ecs100.*; // import ecs100 library
 import java.awt.Color; // import colours
 import javax.swing.JColorChooser; // import colour chooser
 /**
- *  Creates a clone of MS Paint
- *
+ * Creates a clone of MS Paint called MS Pain.
+ * Features: draw a line, draw a circle or square, add text, change colour, change size, and clear screen
  * @author Creed
  * @version 1.0
  * 18.3.24
@@ -24,23 +24,26 @@ public class msPain
     public msPain()
     {
         // initialise instance variables
-        shape = "circle";
+        shape = "circle"; // sets initial shape to circle
         isWriting = false;
-        width = 50.0;
+        width = 50.0; // sets initial shape size to 50
         UI.initialise(); // bring up GUI interface
         UI.setMouseListener(this:: doMouse);
-        UI.addButton("Choose colour", this::doChooseColour);
-        UI.addButton("Choose shape", this::setShape);
-        UI.addButton("Clear", UI::clearGraphics);
-        UI.addButton("Quit", UI::quit); // creates buttons
-        UI.addTextField("text", this::writeText); // adds a text field
-        UI.addSlider("Line width", 10.0, 100.0, 10.0, this::setSize);
-        UI.addSlider("Shape size", 10.0, 100.0, 50.0, this::shapeWidth);
-        UI.addSlider("Text size", 10.0, 100.0, 10.0, this::textSize); // creates sliders
+        // create buttons
+            UI.addButton("Choose colour", this::doChooseColour);
+            UI.addButton("Choose shape", this::setShape);
+            UI.addButton("Clear", UI::clearGraphics);
+            UI.addButton("Quit", UI::quit); 
+        // add a text field
+            UI.addTextField("text", this::writeText); 
+        // create sliders
+            UI.addSlider("Line width", 10.0, 100.0, 10.0, this::setSize);
+            UI.addSlider("Shape size", 10.0, 100.0, 50.0, this::shapeWidth);
+            UI.addSlider("Text size", 10.0, 100.0, 10.0, this::textSize);
     }
 
     /**
-     * Set the width of a line
+     * Sets the width of a line
      */
     public void setSize(double sliderPosition){
         UI.setLineWidth(sliderPosition);
@@ -48,14 +51,14 @@ public class msPain
     }
     
     /**\
-     * Set the size of a shape
+     * Sets the size of a shape
      */
     public void shapeWidth(double sliderPosition){
         width = sliderPosition;
     }
     
     /**
-     * set text size
+     * Sets the text size
      */
     public void textSize(double sliderPosition){
         UI.setFontSize(sliderPosition);
@@ -73,8 +76,8 @@ public class msPain
      * Creates a colour pane for the user to select a colour
      */
     public void doChooseColour(){
-        this.currentColour = JColorChooser.showDialog(null, "Choose colour", this.currentColour);
-        UI.setColor(this.currentColour);
+        this.currentColour = JColorChooser.showDialog(null, "Choose colour", this.currentColour); // adds a colour pane
+        UI.setColor(this.currentColour); // sets the current colour to the selected colour
         isWriting = false;
     }
     
@@ -97,7 +100,7 @@ public class msPain
         else if(action.equals("clicked")){
             if (isWriting == true){
                 UI.drawString(text, x ,y); // checks if the user is writing or not
-        }   
+            }   
             else if  (isWriting == false){  // draws an oval when mouse is clicked
                 if (shape == "circle"){
                     // draws an oval when mouse is clicked
@@ -106,14 +109,14 @@ public class msPain
                 else if (shape == "square") {
                     // draws a square when mouse is clicked
                     UI.fillRect(x -width/2, y -width/2, width, width);
+                }
             }
         }
-    }
         
-}
+    }   
     
     /**
-     * Changes from circle to square and vice versa
+     * Changes the shape being drawn
      */
     public void setShape(){ 
     if (shape == "circle"){
@@ -122,7 +125,7 @@ public class msPain
     
     else if (shape == "square"){
         shape = "circle"; // changes from square to circle
-    }
+        }
     isWriting = false;
-}
+    }
 }
