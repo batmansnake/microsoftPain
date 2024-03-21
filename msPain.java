@@ -83,7 +83,7 @@ public class msPain
     
     /**
      * Call back method for mouse
-     * Draws a line
+     * Draws a circle or rectangle
      */
     public void doMouse(String action, double x, double y)
     {
@@ -94,8 +94,8 @@ public class msPain
             this.startY = y;
         }
         else if (action.equals("released") && this.startX != x && this.startY != y){
-            // draw line when mouse is released
-            UI.drawLine(this.startX, this.startY, x, y);
+            // draws a rectangle when mouse is released
+            UI.fillRect(x - width/2, y - width/2, width, width);
         } 
         else if(action.equals("clicked")){
             if (isWriting == true){
